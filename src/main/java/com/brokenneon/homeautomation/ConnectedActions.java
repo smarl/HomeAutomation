@@ -1,47 +1,37 @@
 package com.brokenneon.homeautomation;
 
 import java.io.IOException;
+import java.util.List;
 
-import com.brokenneon.homeautomation.bean.Device;
+import com.brokenneon.homeautomation.bean.Actionable;
 
 public class ConnectedActions {
-	public static void on(final int level, final Device... devices) {
-		for (int i = 0; i < devices.length; i++) {
-			final Device device = devices[i];
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-//						if (!device.isOn()) {
-//							ConnectedUtils.on(device.getDid());
-//							ConnectedUtils.dim(device.getDid(), 0);
-//						}
-						ConnectedUtils.dim(device.getDid(), level);
-						ConnectedUtils.on(device.getDid());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+	public static void on(final int level, final List<Actionable> devices) {
+		for (Actionable device : devices) {
+			try {
+				if( level < 60 ) {
+					ConnectedUtils.dim(device, level);
+					ConnectedUtils.on(device);
+				} else {
+					ConnectedUtils.on(device);
+					ConnectedUtils.dim(device, level);
 				}
-			}).start();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
-	public static void off(final Device... devices) {
-		for (int i = 0; i < devices.length; i++) {
-			final Device device = devices[i];
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-//						ConnectedUtils.dim(device.getDid(),0);
-						ConnectedUtils.off(device.getDid());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}).start();
+	public static void off(final List<Actionable> devices) {
+		for (Actionable device : devices) {
+			try {
+				// ConnectedUtils.dim(device.getDid(),0);
+				ConnectedUtils.off(device);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

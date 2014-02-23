@@ -1,9 +1,8 @@
 package com.brokenneon.homeautomation.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Device {
+public class Device extends Actionable {
 	String did;
 	String name;
 	int level;
@@ -53,4 +52,19 @@ public class Device {
 	public List<Level> getLevelDisplay() {
 		return Level.buildLevels(this);
 	}
+
+	@Override
+	public String getActionableTag() {
+		return "did";
+	}
+
+	@Override
+	public String getActionableId() {
+		return getDid();
+	}
+
+	@Override
+	public String getActionableRequstAction() {
+		return "DeviceSendCommand";
+	}	
 }

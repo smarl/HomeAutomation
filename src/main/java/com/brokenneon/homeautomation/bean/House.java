@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class House {
+public class House extends Actionable {
 	List<Room> rooms = new ArrayList<Room>();
 	List<Device> allDevices = new ArrayList<Device>();
 	Map<String, Device> devices = new HashMap<String, Device>();
@@ -16,7 +16,7 @@ public class House {
 		for (Device d : newRoom.getDevices()) {
 			devices.put(d.getDid(), d);
 			allDevices.add(d);
-			if( d.isOnline()) {
+			if (d.isOnline()) {
 				online = true;
 			}
 		}
@@ -48,4 +48,18 @@ public class House {
 		return online;
 	}
 
+	@Override
+	public String getActionableTag() {
+		return "hid";
+	}
+
+	@Override
+	public String getActionableId() {
+		return "1";
+	}
+
+	@Override
+	public String getActionableRequstAction() {
+		return "HouseSendCommand";
+	}
 }

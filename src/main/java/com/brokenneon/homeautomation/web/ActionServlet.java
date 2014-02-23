@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.brokenneon.homeautomation.ConnectedActions;
 import com.brokenneon.homeautomation.ConnectedDAO;
-import com.brokenneon.homeautomation.bean.Device;
+import com.brokenneon.homeautomation.bean.Actionable;
 import com.brokenneon.homeautomation.bean.House;
-import com.brokenneon.homeautomation.bean.Room;
 
 public class ActionServlet extends HttpServlet {
 	/**
@@ -35,27 +34,27 @@ public class ActionServlet extends HttpServlet {
 	public void dim(HttpServletRequest req) throws ServletException,
 			IOException {
 		int level = Integer.parseInt(req.getParameter("level"));
-		if (req.getParameter("house") == null && req.getParameter("room") == null && req.getParameter("did") == null) {
+		if (req.getParameter("house") == null
+				&& req.getParameter("room") == null
+				&& req.getParameter("did") == null) {
 			throw new ServletException("house nor room nor did were specified!");
 		}
 
 		House house = ConnectedDAO.getHouse();
-		List<Device> devices = new ArrayList<Device>();
+		List<Actionable> devices = new ArrayList<Actionable>();
 		if (req.getParameter("house") != null) {
-			for (Room r : house.getRooms()) {
-				devices.addAll(r.getDevices());
-			}
+			devices.addAll(house.getRooms());
+			// devices.add(house);
 		} else if (req.getParameter("room") != null) {
-			devices = house.getRoom(req.getParameter("room")).getDevices();
+			devices.add(house.getRoom(req.getParameter("room")));
 		} else {
 			devices.add(house.getDevices().get(req.getParameter("did")));
 		}
 
 		if (level == 0) {
-			ConnectedActions.off(devices.toArray(new Device[devices.size()]));
+			ConnectedActions.off(devices);
 		} else {
-			ConnectedActions.on(level,
-					devices.toArray(new Device[devices.size()]));
+			ConnectedActions.on(level, devices);
 		}
 	}
 }

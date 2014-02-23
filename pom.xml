@@ -3,11 +3,48 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.brokenneon.homeautomation</groupId>
 	<artifactId>homeautomation</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>1.1</version>
 	<name>homeautomation</name>
 	<url>http://brokenneon.com</url>
+	<properties>
+		<tomcat.version>7.0.34</tomcat.version>
+	</properties>
 	<dependencies>
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-logging-juli</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper-el</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jsp-api</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+
+
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -66,6 +103,11 @@
 			<version>4.3.2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.jmdns</groupId>
+			<artifactId>jmdns</artifactId>
+			<version>3.2.2</version>
+		</dependency>
 
 	</dependencies>
 
@@ -79,6 +121,21 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.brokenneon.homeautomation.Main</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

@@ -46,6 +46,9 @@ public class HouseParser {
 		Room result = new Room();
 		for (int i = 0; i < roomNode.getChildNodes().getLength(); i++) {
 			Node child = roomNode.getChildNodes().item(i);
+			if ("rid".equals(child.getNodeName())) {
+				result.setRid(child.getTextContent());
+			}
 			if ("name".equals(child.getNodeName())) {
 				result.setName(child.getTextContent());
 			}

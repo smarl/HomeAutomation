@@ -8,6 +8,8 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.brokenneon.homeautomation.bean.Actionable;
+
 public class ConnectedUtils {
 	public static final String ROOT = "http://lighting.local./gwr/gop.php?fmt=xml";
 
@@ -23,16 +25,21 @@ public class ConnectedUtils {
 		return new URL(builder.build().toString()).openStream();
 	}
 
-	private static void deviceSendCommand(String did, int i) throws IOException {
-		deviceSendCommand(did, i, null);
-	}
+	// private static void deviceSendCommand(String did, int i) throws
+	// IOException {
+	// deviceSendCommand(did, i, null);
+	// }
 
-	static void deviceSendCommand(String did, int value, String type)
+	static void deviceSendCommand(Actionable device, int value, String type)
 			throws IOException {
 		StringBuffer sb = new StringBuffer();
-		sb.append("<gip><version>1</version><token>1234567890</token><did>");
-		sb.append(did);
-		sb.append("</did><value>");
+		sb.append("<gip><version>1</version><token>1234567890</token><");
+		sb.append(device.getActionableTag());
+		sb.append(">");
+		sb.append(device.getActionableId());
+		sb.append("</");
+		sb.append(device.getActionableTag());
+		sb.append("><value>");
 		sb.append(Integer.toString(value));
 		sb.append("</value>");
 		if (StringUtils.isNotBlank(type)) {
@@ -42,23 +49,24 @@ public class ConnectedUtils {
 		}
 		sb.append("</gip>");
 
-		if( System.getProperty("JUST_PRINT") != null ) {
-			System.out.println( sb.toString() );
+		if (System.getProperty("JUST_PRINT") != null) {
+			System.out.println(device.getActionableRequstAction() + " = "
+					+ sb.toString());
 		} else {
-			request("DeviceSendCommand", sb.toString()).close();
+			request(device.getActionableRequstAction(), sb.toString()).close();
 		}
 	}
 
-	public static void dim(String did, int level) throws IOException {
-		deviceSendCommand(did, level, "level");
+	public static void dim(Actionable device, int level) throws IOException {
+		deviceSendCommand(device, level, "level");
 	}
 
-	public static void on(String did) throws IOException {
-		deviceSendCommand(did, 1);
+	public static void on(Actionable device) throws IOException {
+		deviceSendCommand(device, 1, null);
 	}
 
-	public static void off(String did) throws IOException {
-		deviceSendCommand(did, 0);
+	public static void off(Actionable device) throws IOException {
+		deviceSendCommand(device, 0, null);
 	}
 }
 
