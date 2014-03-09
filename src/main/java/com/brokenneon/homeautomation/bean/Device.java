@@ -26,7 +26,7 @@ public class Device extends Actionable {
 	}
 
 	public int getLevel() {
-		return level;
+		return on && online ? level : 0;
 	}
 
 	public void setLevel(int level) {

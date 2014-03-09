@@ -29,8 +29,6 @@ public class Room extends Actionable {
 		this.devices = devices;
 	}
 
-	
-	
 	public String getRid() {
 		return rid;
 	}
@@ -53,6 +51,18 @@ public class Room extends Actionable {
 		return false;
 	}
 
+	public Integer getAverageLevel() {
+		int count = 0;
+		int total = 0;
+		for (Device d : getDevices()) {
+			count++;
+			if (d.isOnline()) {
+				total += d.getLevel();
+			}
+		}
+		return Math.round(total / count);
+	}
+
 	@Override
 	public String getActionableTag() {
 		return "rid";
@@ -66,5 +76,5 @@ public class Room extends Actionable {
 	@Override
 	public String getActionableRequstAction() {
 		return "RoomSendCommand";
-	}	
+	}
 }

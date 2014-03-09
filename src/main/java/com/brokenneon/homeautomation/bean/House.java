@@ -30,18 +30,41 @@ public class House extends Actionable {
 		return devices;
 	}
 
-	public Room getRoom(String name) {
+	public Room getRoom(String id) {
 		for (Room r : rooms) {
-			if (name.equals(r.getName())) {
+			if (r.getActionableId().equals(id)) {
 				return r;
 			}
 		}
 		return null;
 	}
 
+	// public Room getRoom(String name) {
+	// for (Room r : rooms) {
+	// if (name.equals(r.getName())) {
+	// return r;
+	// }
+	// }
+	// return null;
+	// }
+
 	public List<Level> getLevelDisplay() {
 		return Level.buildLevels(allDevices.toArray(new Device[allDevices
 				.size()]));
+	}
+
+	public Integer getAverageLevel() {
+		int count = 0;
+		int total = 0;
+		for (Room r : getRooms()) {
+			for (Device d : r.getDevices()) {
+				count++;
+				if (d.isOnline()) {
+					total += d.getLevel();
+				}
+			}
+		}
+		return Math.round(total / count);
 	}
 
 	public boolean isOnline() {

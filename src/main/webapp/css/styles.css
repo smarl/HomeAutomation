@@ -1,6 +1,35 @@
+body {
+	background: #FFFF73;
+}
 .room_outer {
-	background: #EFEFEF;
+	background: #FFFF00;
+}
+.device_outer {
+	background: #FFFF00;
 }
 .notshowing {
 	display: none;
+}
+.showRoom {
+	margin: 2px 4px 0px 4px;
+	background-image: linear-gradient(to bottom,#999900 0,#AAAAAA 100%);
+	//display: inline;
+}
+.levels {
+	padding: 1px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+.progress {
+	margin-top: 3px;
+	background-image: linear-gradient(to bottom,#666666 0,#222222 100%);
+	//display: inline;
+	//clear:both;
+}
+.progress-bar {
+	background-image: linear-gradient(to bottom,#BFBF30 0,#A6A600 100%);
+	text-align: left;
+	padding-left: 3px;
+}
+.room_outer {
+	padding: 0;
 }

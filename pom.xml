@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.brokenneon.homeautomation</groupId>
 	<artifactId>homeautomation</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>1.1</version>
 	<name>homeautomation</name>
 	<url>http://brokenneon.com</url>
@@ -12,6 +12,7 @@
 	</properties>
 	<dependencies>
 
+<!--
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
@@ -42,7 +43,7 @@
 			<artifactId>tomcat-jsp-api</artifactId>
 			<version>${tomcat.version}</version>
 		</dependency>
-
+-->
 
 
 		<dependency>
